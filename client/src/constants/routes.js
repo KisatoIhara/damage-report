@@ -1,0 +1,12 @@
+export const LOGIN = "/login";
+export const SIGN_UP = "/login/new";
+export const CONFIRMATION = "/login/new/confirmation";
+export const FORGOT_PASSWORD = "/forgot-password";
+export const INPUT = "/";
+export const ALTERNATIVE = "/alternative";
+export const DONE = "/done";
+export const PROGRESS = "/progress";
+export const MY = "/mylog";
+export const CRAN = "/cranlog";
+export const MYPAGE = "/mypage";
+export const MANAGEMENT = "/management";

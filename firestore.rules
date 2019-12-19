@@ -1,0 +1,28 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function userData(userId) {
+      return getAfter(/databases/$(database)/documents/status/$(userId)).data;
+    }
+    match /users/{userId} {
+      allow read: if request.auth !=null;
+      allow create, update: if userData(request.auth.uid).admin == true
+      || userId == request.auth.uid;
+      allow delete: if userData(request.auth.uid).admin == true;
+    }
+    match /report/{ym}/{userId}/{docId} {
+      allow read, write: if userData(request.auth.uid).redias == true 
+      && (userData(request.auth.uid).admin == true || userId == request.auth.uid);
+    }
+    match /redias/{docId} {
+      allow read, write: if request.auth != null && userData(request.auth.uid).redias == true;
+    }
+    match /status/{userId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.resource.data.admin == false && request.resource.data.redias == false;
+      allow update, delete: if userData(request.auth.uid).admin;
+    }
+    match /period/{ym} {
+      allow read;
+    }
+  }
+}

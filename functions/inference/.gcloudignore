@@ -1,0 +1,4 @@
+.gcloudignore
+.gitignore
+venv/
+test.py
